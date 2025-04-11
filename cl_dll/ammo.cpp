@@ -934,6 +934,18 @@ int CHudAmmo::Draw(float flTime)
 	y = ScreenHeight - gHUD.m_iFontHeight - gHUD.m_iFontHeight/2;
 	y += (int)(gHUD.m_iFontHeight * 0.2f);
 
+	// Dark 'n Griddy
+	int dScale = 1;
+
+	#if !defined( _TFC )
+		if (ScreenWidth > 2560 && ScreenHeight > 1600) {
+			dScale = 3;
+		}
+		else if (ScreenWidth >= 1280 && ScreenHeight > 720) {
+			dScale = 2;
+		}
+	#endif
+
 	// Does weapon have any ammo at all?
 	if (m_pWeapon->iAmmoType > 0)
 	{
@@ -961,7 +973,7 @@ int CHudAmmo::Draw(float flTime)
 			rc.bottom = 100;
 
 			SPR_Set(m_hAmmoText, r, g, b );
-			SPR_DrawAdditive( 0,  x-60, y-10, m_prcAmmoText );
+			SPR_DrawAdditive( 0,  x-60, y-(10*dScale), m_prcAmmoText );
 			
 			SPR_Set(m_hDigitsBG1, r, g, b );
 			SPR_DrawAdditive( 0,  x-60, y, m_prcDigitsBG1 );
@@ -1003,7 +1015,7 @@ int CHudAmmo::Draw(float flTime)
 			x = gHUD.DrawHudNumber(x, y, iFlags | DHN_3DIGITS, gWR.CountAmmo(pw->iAmmoType), r, g, b);
 
 			SPR_Set(m_hAmmoText, r, g, b );
-			SPR_DrawAdditive( 0,  x-60, y-10, m_prcAmmoText );
+			SPR_DrawAdditive( 0,  x-60, y-(10*dScale), m_prcAmmoText );
 
 			SPR_Set(m_hDigitsBG1, r, g, b );
 			SPR_DrawAdditive( 0,  x-60, y, m_prcDigitsBG1 );

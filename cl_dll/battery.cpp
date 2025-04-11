@@ -147,12 +147,17 @@ int CHudBattery::Draw(float flTime)
 	int width = (m_prc1->right - m_prc1->left);
 
 	int bScale = 3;
+	int yScale = 1;
 
 	#if !defined( _TFC )
-		if (ScreenWidth > 2560 && ScreenHeight > 1600)
+		if (ScreenWidth > 2560 && ScreenHeight > 1600) {
 			bScale = 5;
-		else if (ScreenWidth >= 1280 && ScreenHeight > 720)
+			yScale = 3;
+		}
+		else if (ScreenWidth >= 1280 && ScreenHeight > 720) {
 			bScale = 4;
+			yScale = 2;
+		}
 	#endif
 
 	// this used to just be ScreenWidth/5 but that caused real issues at higher resolutions. Instead, base it on the width of this sprite.
@@ -171,7 +176,7 @@ int CHudBattery::Draw(float flTime)
 	if (rc.bottom > rc.top)
 	{
 		SPR_Set(m_hSprite2, r, g, b );
-		SPR_DrawAdditive( 0, x, y - iOffset - 10 + (rc.top - m_prc2->top), &rc);
+		SPR_DrawAdditive( 0, x, y - iOffset - (10*yScale) + (rc.top - m_prc2->top), &rc);
 	}
 
 	// x += width;

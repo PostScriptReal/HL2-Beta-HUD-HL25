@@ -221,8 +221,18 @@ int CHudHealth::Draw(float flTime)
 		y = ScreenHeight - gHUD.m_iFontHeight - gHUD.m_iFontHeight / 2;
 		x = CrossWidth /2;
 
+		// Dark 'n Griddy
+		int dScale = 1;
+
+		#if !defined( _TFC )
+			if (ScreenWidth > 2560 && ScreenHeight > 1600)
+				dScale = 3;
+			else if (ScreenWidth >= 1280 && ScreenHeight > 720)
+				dScale = 2;
+		#endif
+		
 		SPR_Set(gHUD.GetSprite(m_HUD_cross), r, g, b);
-		SPR_DrawAdditive(0, x, y-10, &gHUD.GetSpriteRect(m_HUD_cross));
+		SPR_DrawAdditive(0, x, y-(10*dScale), &gHUD.GetSpriteRect(m_HUD_cross));
 		SPR_Set(m_hDigitsBG1, r, g, b );
 		SPR_DrawAdditive( 0,  x, y, m_prcDigitsBG1 );
 		SPR_Set(m_hDigitsBG2, r, g, b );
