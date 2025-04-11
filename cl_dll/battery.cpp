@@ -146,9 +146,18 @@ int CHudBattery::Draw(float flTime)
 	
 	int width = (m_prc1->right - m_prc1->left);
 
+	int bScale = 3;
+
+	#if !defined( _TFC )
+		if (ScreenWidth > 2560 && ScreenHeight > 1600)
+			bScale = 5;
+		else if (ScreenWidth >= 1280 && ScreenHeight > 720)
+			bScale = 4;
+	#endif
+
 	// this used to just be ScreenWidth/5 but that caused real issues at higher resolutions. Instead, base it on the width of this sprite.
-	x = gHUD.GetSpriteRect(gHUD.m_HUD_number_0).left + 128;
-	// x = 3 * width;
+	// x = gHUD.GetSpriteRect(gHUD.m_HUD_number_0).left + 128;
+	x = bScale * width + 53;
 
 	// make sure we have the right sprite handles
 	if ( !m_hSprite1 )
